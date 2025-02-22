@@ -10,9 +10,6 @@ router.put("/assign/:volunteerId",verifyToken,assignVolunteer);
 //unassign operation to volunteer
 router.put("/unassign/:volunteerId",verifyToken,);
 
-//get all volunteers
-router.get("/volunteers",verifyToken,);
-
 //add a volunteer to the ngo
 router.post("/addvolunteer/:volunteerId",verifyToken,);
 
