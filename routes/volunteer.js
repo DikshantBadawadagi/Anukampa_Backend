@@ -3,8 +3,8 @@ import { signin, signup } from '../controllers/volunteerAuth.js';
 
 const router  = express.Router();
 
-router.post("/volunteer/signup",signup)
+router.post("/signup",signup)
 
-router.post("/volunteer/signin",signin)
+router.post("/signin",signin)
 
 export default router;

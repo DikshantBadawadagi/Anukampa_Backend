@@ -3,8 +3,8 @@ import { signin, signup } from '../controllers/ngoAuth.js';
 
 const router = express.Router();
 
-router.post("/ngo/signup",signup)
+router.post("/signup",signup)
 
-router.post("/ngo/signin",signin)
+router.post("/signin",signin)
 
 export default router;

@@ -6,7 +6,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import imageRoutes from "./routes/images.js";
 import ngoRoutes from "./routes/ngoUser.js";
-import volunteerRoutes from "./routes/volunteer.js";
+import volunteerAuthRoutes from "./routes/volunteer.js";
+import ngoAuthRoutes from "./routes/ngo.js";
+
 
 dotenv.config();
 
@@ -46,8 +48,9 @@ app.use(cookieParser());
 // app.use("/api/videos", videoRoutes);
 // app.use("/api/comments", commentRoutes);
 app.use("/api/uploadImage", imageRoutes);
+app.use("/auth/ngo", ngoAuthRoutes);
+app.use("/auth/volunteer", volunteerAuthRoutes);
 app.use("/ngo", ngoRoutes);
-app.use("/volunteer", volunteerRoutes);
 
 app.use(errorHandler);
 
