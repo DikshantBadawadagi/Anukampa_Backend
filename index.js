@@ -1,10 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import imageRoutes from "./routes/images.js";
 import ApiError from "./error.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import imageRoutes from "./routes/images.js";
+import ngoRoutes from "./routes/ngoUser.js";
+import volunteerRoutes from "./routes/volunteer.js";
 
 dotenv.config();
 
@@ -44,6 +46,8 @@ app.use(cookieParser());
 // app.use("/api/videos", videoRoutes);
 // app.use("/api/comments", commentRoutes);
 app.use("/api/uploadImage", imageRoutes);
+app.use("/ngo", ngoRoutes);
+app.use("/volunteer", volunteerRoutes);
 
 app.use(errorHandler);
 

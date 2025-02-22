@@ -23,7 +23,7 @@ router.get("/cases/nearby", verifyToken, getImagesWithinRadius);
 router.post("/accept/:imageId",verifyToken,acceptImage);
 
 //get all volunteers
-router.get("/ngo/volunteers",verifyToken,getAllVolunteers);
+router.get("/volunteers",verifyToken,getAllVolunteers);
 
 //get all reports by status
 router.get("/reports",verifyToken,getAllByStatus);

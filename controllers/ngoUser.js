@@ -1,8 +1,8 @@
-import ApiError from "../utils/apiError.js";
 import { HTTP_SUCCESS } from "../utils.js";
 import Ngo from "../models/Ngo.js"; 
 import Report from "../models/Report.js";
 import Image from "../models/Image.js";
+import ApiError from "../error.js";
 
 
 export const getImagesWithinRadius = async (req, res, next) => {
@@ -91,7 +91,7 @@ export const acceptImage = async (req, res, next) => {
   export const getAllVolunteers = async (req, res, next) => {
     try {
       const ngoId = req.user.id;
-      
+
       const ngo = await Ngo.findById(ngoId);
 
       if (!ngo) {
