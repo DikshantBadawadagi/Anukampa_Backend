@@ -21,11 +21,11 @@ const imageSchema = new mongoose.Schema ( {
         type: String,
         required: true
     },
-    status: {
-        type: String,
-        enum: ["Pending", "In Progress", "Resolved"],
-        default: "Pending",
-      },
+    // status: {
+    //     type: String,
+    //     enum: ["Pending", "In Progress", "Resolved"],
+    //     default: "Pending",
+    //   },
     // actualInjury: {
     //     type: String,
     // }

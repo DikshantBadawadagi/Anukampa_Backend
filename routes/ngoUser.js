@@ -1,5 +1,5 @@
 import express from "express";
-import { acceptImage, assignVolunteer, getImagesWithinRadius } from "../controllers/ngoUser.js";
+import { acceptImage, assignVolunteer, getAllByStatus, getAllVolunteers, getImagesWithinRadius } from "../controllers/ngoUser.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
@@ -24,5 +24,11 @@ router.get("/cases/nearby", verifyToken, getImagesWithinRadius);
 
 //accept an image
 router.post("/accept/:imageId",verifyToken,acceptImage);
+
+//get all volunteers
+router.get("/ngo/volunteers",verifyToken,getAllVolunteers);
+
+//get all reports by status
+router.get("/reports",verifyToken,getAllByStatus);
 
 export default router;

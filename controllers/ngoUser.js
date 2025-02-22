@@ -1,6 +1,9 @@
-import Ngo from "../models/Ngo.js"; 
 import ApiError from "../utils/apiError.js";
 import { HTTP_SUCCESS } from "../utils.js";
+import Ngo from "../models/Ngo.js"; 
+import Report from "../models/Report.js";
+import Image from "../models/Image.js";
+
 
 export const getImagesWithinRadius = async (req, res, next) => {
   try {
@@ -64,5 +67,41 @@ export const acceptImage = async (req, res, next) => {
       HTTP_SUCCESS(res, updatedReport, "Volunteer assigned successfully");
     } catch (err) {
       next(new ApiError(500, err.message || "Failed to assign volunteer"));
+    }
+  };
+
+  export const getAllByStatus = async (req, res, next) => {
+    try {
+      const status = req.query.status;
+      const ngoId = req.user.id; 
+
+      if (!status || !["Pending", "In Progress", "Resolved"].includes(status)) {
+        return next(new ApiError(400, "Invalid status value. Use Pending, In Progress, or Resolved"));
+      }
+
+      const reports = await Report.getAllByStatus(ngoId, status);
+
+      HTTP_SUCCESS(res, reports, "Reports fetched successfully");
+
+    }catch(err){
+      next(new ApiError(500, err.message || "Failed to fetch images"));
+    }
+  };
+
+  export const getAllVolunteers = async (req, res, next) => {
+    try {
+      const ngoId = req.user.id;
+      
+      const ngo = await Ngo.findById(ngoId);
+
+      if (!ngo) {
+        return next(new ApiError(404, "NGO not found"));
+      }
+
+      const volunteers = await ngo.getVolunteers();
+
+      HTTP_SUCCESS(res, volunteers, "Volunteers fetched successfully");
+    }catch(err){
+      next(new ApiError(500, err.message || "Failed to fetch volunteers"));
     }
   };
