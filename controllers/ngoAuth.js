@@ -15,7 +15,8 @@ export const signup = async (req, res, next) => {
         if(!newNgo) {
             throw new ApiError(500, "Something went wrong")
         }
-        HTTP_SUCCESS(res, "Ngo has been registered");
+
+        HTTP_CREATED(res);
         }catch(err){
         return next(err);
     }
@@ -25,7 +26,8 @@ export const signin = async (req, res, next) => {
     console.log(req.body);
     
     try{
-        const ngo = await Ngo.findByEmail({email:req.body.email});
+        const { email } = req.body;
+        const ngo = await Ngo.findByEmail(email);
         if(!ngo) {
             throw new ApiError(404, "Ngo not found")
         } 

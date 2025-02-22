@@ -212,7 +212,7 @@ ngoSchema.statics.findByCity = function (city) {
   return this.find({ "address.city": city });
 };
 
-// Aggregate dashboard data (e.g., volunteer count per NGO)
+// Aggregate dashboard data 
 ngoSchema.statics.getDashboardData = async function () {
   const Volunteer = mongoose.model("Volunteer");
   return await this.aggregate([

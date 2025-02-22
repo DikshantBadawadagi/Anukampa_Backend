@@ -57,12 +57,13 @@ export const acceptImage = async (req, res, next) => {
     try {
       const ngoId = req.user.id;
       const volunteerId = req.params.volunteerId;
+      const imageId = req.body.imageId;
   
       if (!volunteerId || typeof volunteerId !== "string") {
         return next(new ApiError(400, "Invalid volunteer ID"));
       }
   
-      const updatedReport = await Report.assignVolunteer(ngoId, volunteerId);
+      const updatedReport = await Report.assignVolunteer(volunteerId, imageId);
   
       HTTP_SUCCESS(res, updatedReport, "Volunteer assigned successfully");
     } catch (err) {

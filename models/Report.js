@@ -8,7 +8,7 @@ const reportSchema = new mongoose.Schema({
   },
   volunteerId: {
     type: "String",
-    required: true,
+    required: false,
     default: "",
   },
   isAffiliated: {
@@ -18,7 +18,7 @@ const reportSchema = new mongoose.Schema({
   },
   ngoId: {
     type: "String",
-    required: false,
+    required: true,
     default: "",
   },
   imageId: {
@@ -50,17 +50,16 @@ reportSchema.pre("save", function (next) {
 });
 
 //assign the report to a volunteer
-reportSchema.statics.assignVolunteer = async function (ngoId, volunteerId) {
-  // Find a report associated with the NGO (e.g., one that’s in progress and taken)
-  const report = await this.findOne({ ngoId, isTaken: true, status: "In Progress" });
+reportSchema.statics.assignVolunteer = async function (volunteerId, imageId) {
+  const report = await this.findOne({ imageId});
   if (!report) {
     throw new Error("No suitable report found for this NGO to assign");
   }
 
-  // Update the volunteerId
   return await this.findByIdAndUpdate(
     report._id,
     { volunteerId, updatedAt: Date.now() },
+    {isAffiliated: true},
     { new: true }
   );
 };
@@ -115,6 +114,11 @@ reportSchema.statics.updateStatus = async function (reportId, newStatus) {
     { status: newStatus, updatedAt: Date.now() },
     { new: true }
   );
+};
+
+//get all by status
+reportSchema.statics.getAllByStatus = async function (ngoId,status) {
+  return this.find({ ngoId, status });
 };
 
 // Instance methods (unchanged)

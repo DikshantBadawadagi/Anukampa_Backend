@@ -25,9 +25,11 @@ export const signin = async (req, res, next) => {
     console.log(req.body);
     
     try{
-        const volunteer = await Volunteer.findByEmail({email:req.body.email});
+        const { email } = req.body;
+        const volunteer = await Volunteer.findByEmail(email);
+
         if(!volunteer) {
-            throw new ApiError(404, "Ngo not found")
+            throw new ApiError(404, "Volunteer not found")
         } 
         
         const isCorrect = await bcrypt.compare(req.body.password, volunteer.password);
@@ -35,7 +37,7 @@ export const signin = async (req, res, next) => {
             throw new ApiError(400, "Wrong username or password")
         }
 
-        const token = jwt.sign({id: ngo._id}, process.env.JWT)
+        const token = jwt.sign({id: volunteer._id}, process.env.JWT)
 
         const {password, ...others} = volunteer._doc;
 

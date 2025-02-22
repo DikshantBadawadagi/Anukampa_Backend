@@ -20,7 +20,7 @@ router.delete("/removevolunteer/:volunteerId",verifyToken,);
 router.get("/cases/nearby", verifyToken, getImagesWithinRadius);
 
 //accept an image
-router.post("/accept/:imageId",verifyToken,acceptImage);
+router.post("/accept/:imageId",verifyToken,acceptImage); //creates the report object
 
 //get all volunteers
 router.get("/volunteers",verifyToken,getAllVolunteers);
